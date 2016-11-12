@@ -42,6 +42,11 @@ Meteor.methods({
             throw new Meteor.Error('not-authorized');
         }
 
+        if (task.owner !== this.userId) {
+            // Only the owner can delete their tasks
+            throw new Meteor.Error('not-authorized');
+        }
+
         Tasks.remove(taskId);
     },
     'tasks.setChecked'(taskId, setChecked) {
